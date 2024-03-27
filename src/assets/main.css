@@ -1,0 +1,141 @@
+@import './base.css';
+@import './transitions.css';
+
+body {
+    padding: var(--spacing);
+    width: 100%;
+    height: 100dvh;
+    background-color: #2f2f2f;
+    font-family: sans-serif;
+}
+
+.ai-rounded {
+    border-radius: var(--border-radius);
+}
+
+.ai-base {
+    --ui-color: var(--primary-color);
+    --ui-text-color: var(--primary-text-color);
+    transition:
+        color var(--anim-duration) ease,
+        background-color var(--anim-duration) ease,
+        border-color var(--anim-duration) ease;
+}
+
+.ai-icon {
+    --color: var(--text-color);
+    pointer-events: none;
+    fill: var(--color);
+    transition: fill var(--anim-duration) ease;
+}
+
+/*** BORDER RIPPLE ***/
+
+.ai-ripple-border {
+    --border-color: var(--ui-color);
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.ai-ripple-border::after,
+.ai-ripple-border::before {
+    --anim-duration: 0.18s;
+    inset: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: inherit;
+    transition: box-shadow var(--anim-duration) ease;
+    box-shadow:
+        color-mix(in srgb, var(--border-color) 50%, transparent) 0px 0px 0px 0px,
+        color-mix(in srgb, var(--border-color) 50%, transparent) 0px 0px 0px 0px;
+}
+
+.ai-ripple-border::before {
+    transition-delay: var(--anim-duration);
+}
+
+.ai-ripple-border:is(:focus, :active):not(:disabled)::after,
+.ai-ripple-border:is(:focus, :active):not(:disabled)::before {
+    box-shadow:
+        color-mix(in srgb, var(--border-color) 30%, transparent) 0px 0px 0px var(--border-size),
+        color-mix(in srgb, var(--border-color) 30%, transparent) 0px 0px 0px var(--border-size);
+}
+
+/*** RIPPLE EFFECT ***/
+
+.ai-base .ai-ripple-container {
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.ai-base .ai-ripple-container > .ai-ripple-effect {
+    overflow: hidden;
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    pointer-events: none;
+    animation: ripple 600ms linear forwards;
+    background-color: color-mix(in srgb, var(--ui-text-color) 30%, transparent);
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/*** STATES ***/
+
+.ai-error {
+    --ui-color: var(--error-color);
+    --ui-text-color: var(--error-text-color);
+}
+
+.ai-info {
+    --ui-color: var(--info-color);
+    --ui-text-color: var(--info-text-color);
+}
+
+.ai-success {
+    --ui-color: var(--success-color);
+    --ui-text-color: var(--success-text-color);
+}
+
+.ai-warning {
+    --ui-color: var(--warning-color);
+    --ui-text-color: var(--warning-text-color);
+}
+
+.ai-secondary {
+    --ui-color: var(--secondary-color);
+    --ui-text-color: var(--secondary-text-color);
+}
+
+/*** LOADERS ***/
+
+.ai-loader {
+    --size: 3.25em;
+    --color: var(--ui-text-color);
+
+    width: var(--size);
+    height: var(--size);
+}
+
+/*** DISABLED  ***/
+
+/* DISABLED */
+
+.ai-disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.75;
+    cursor: auto;
+}

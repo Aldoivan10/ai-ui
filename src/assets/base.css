@@ -1,0 +1,94 @@
+:root {
+    --bg-color: #f5f5f5;
+    --surface-color: #fff;
+    --text-color: #000;
+
+    --border-radius: 0.2rem;
+    --border-size: 0.2rem;
+    --anim-duration: 0.3s;
+    --spacing: 0.5rem;
+
+    --text-primary-color: color-mix(in srgb, var(--text-color) 87%, transparent);
+    --text-secondary-color: color-mix(in srgb, var(--text-color) 60%, transparent);
+    --text-disabled-color: color-mix(in srgb, var(--text-color) 38%, transparent);
+
+    --primary-color: #6200ea;
+    --primary-light-color: color-mix(in srgb, var(--primary-color) 80%, white);
+    --primary-dark-color: color-mix(in srgb, var(--primary-color) 75%, black);
+    --primary-text-color: #fff;
+
+    --secondary-color: #146eff;
+    --secondary-light-color: color-mix(in srgb, var(--secondary-color) 80%, white);
+    --secondary-dark-color: color-mix(in srgb, var(--secondary-color) 75%, black);
+    --secondary-text-color: #fff;
+
+    --error-color: #e22424;
+    --error-light-color: color-mix(in srgb, var(--error-color) 80%, white);
+    --error-dark-color: color-mix(in srgb, var(--error-color) 75%, black);
+    --error-text-color: #fff;
+
+    --success-color: #1da247;
+    --success-light-color: color-mix(in srgb, var(--success-color) 80%, white);
+    --success-dark-color: color-mix(in srgb, var(--success-color) 75%, black);
+    --success-text-color: #fff;
+
+    --warning-color: #ff7808;
+    --warning-light-color: color-mix(in srgb, var(--warning-color) 80%, white);
+    --warning-dark-color: color-mix(in srgb, var(--warning-color) 75%, black);
+    --warning-text-color: #fff;
+
+    --info-color: #2096f3;
+    --info-light-color: color-mix(in srgb, var(--info-color) 80%, white);
+    --info-dark-color: color-mix(in srgb, var(--info-color) 75%, black);
+    --info-text-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #2f2f2f;
+        --surface-color: #272727;
+        --text-color: #d3d3d3;
+        --primary-color: #7c4dff;
+        --primary-text-color: #fff;
+        --secondary-color: #2979ff;
+        --secondary-text-color: #fff;
+    }
+}
+
+/** CSS RESET **/
+
+* {
+    min-width: 0;
+    font: inherit;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+img,
+video,
+svg {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+body {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
