@@ -137,8 +137,9 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
         width: 2.2rem;
         padding: 0 calc(var(--spacing) + 2px);
         margin-bottom: calc(var(--border-size) - 1px);
-        background-color: color-mix(in srgb, var(--text-secondary-color) 5%, transparent);
+        background-color: color-mix(in srgb, var(--text-secondary-color) 10%, transparent);
         border: 1px solid color-mix(in srgb, var(--text-secondary-color) 10%, transparent);
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
 
         .ai-ripple-effect {
             --ui-text-color: var(--ui-color);
