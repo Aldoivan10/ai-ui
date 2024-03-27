@@ -46,3 +46,12 @@ export const charMatchSome = (char: string, matcher: StrOrRegex[]) => {
     }
     return false
 }
+
+export const switchType = (input: HTMLInputElement, targetType: string, defaultType: string) => {
+    if (input.type === targetType) {
+        input.type = defaultType
+        return true
+    }
+    input.type = targetType
+    return false
+}

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { initTextInput } from '@/controller/InputController'
+import { randID, switchType } from '@/util/functions'
 import IconEye from '@/components/icons/IconEye.vue'
 import type { TextInputProps } from '@/util/props'
 import AIBaseInput from '../base/AIBaseInput.vue'
 import { computed, onMounted, ref } from 'vue'
-import { randID } from '@/util/functions'
 
-const active = ref(true)
+const iconActive = ref(true)
 const model = defineModel({ type: String })
 const input = ref<HTMLInputElement>(document.createElement('input'))
 
@@ -25,16 +25,6 @@ const { type, trim, upper, capitalize, mask, notInput, successIf, warningIf, err
         errorIf: () => false
     })
 
-const switchType = () => {
-    const target = input.value
-    if (target.type === 'password') {
-        target.type = 'text'
-        active.value = false
-    } else {
-        target.type = 'password'
-        active.value = true
-    }
-}
 const success = computed(() => successIf(model.value ? model.value : ''))
 const warning = computed(() => warningIf(model.value ? model.value : ''))
 const error = computed(() => errorIf(model.value ? model.value : ''))
@@ -88,9 +78,14 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
             class="ai-input"
         />
         <slot v-if="type !== 'password'" name="trailing" />
-        <label :for="id" v-else class="ai-password-toggle ai-rounded" @click="switchType">
+        <label
+            :for="id"
+            v-else
+            class="ai-password-toggle ai-rounded"
+            @click="iconActive = !switchType(input, 'password', 'text')"
+        >
             <span class="ai-icon-container">
-                <IconEye :active="active" />
+                <IconEye :active="iconActive" />
             </span>
         </label>
     </AIBaseInput>
