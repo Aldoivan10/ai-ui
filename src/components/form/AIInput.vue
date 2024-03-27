@@ -81,7 +81,7 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
         <label
             :for="id"
             v-else
-            class="ai-password-toggle ai-rounded"
+            class="ai-password-toggle ai-rounded ai-input-button"
             @click="iconActive = !switchType(input, 'password', 'text')"
         >
             <span class="ai-icon-container">
@@ -133,17 +133,10 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
     }
 
     .ai-password-toggle {
-        z-index: 1;
         width: 2.2rem;
         padding: 0 calc(var(--spacing) + 2px);
         margin-bottom: calc(var(--border-size) - 1px);
-        background-color: color-mix(in srgb, var(--text-secondary-color) 10%, transparent);
-        border: 1px solid color-mix(in srgb, var(--text-secondary-color) 10%, transparent);
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
-
-        .ai-ripple-effect {
-            --ui-text-color: var(--ui-color);
-        }
 
         .ai-icon-container {
             width: 100%;
@@ -153,7 +146,7 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
         }
 
         .ai-icon {
-            scale: 1.8;
+            scale: 1.7;
         }
     }
 
