@@ -133,9 +133,7 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
     }
 
     .ai-password-toggle {
-        width: 2.2rem;
-        padding: 0 calc(var(--spacing) + 2px);
-        margin-bottom: calc(var(--border-size) - 1px);
+        margin-bottom: var(--border-size);
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
 
         .ai-icon-container {
@@ -148,10 +146,6 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
         .ai-icon {
             scale: 1.7;
         }
-    }
-
-    .ai-password-toggle:hover {
-        cursor: pointer;
     }
 }
 
