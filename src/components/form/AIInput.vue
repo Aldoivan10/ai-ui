@@ -48,7 +48,7 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
             'ai-error': error && !warning && !success
         }"
     >
-        <p class="ai-placeholer" :class="{ 'ai-float-label': floatLabel }">
+        <p class="ai-placeholder" :class="{ 'ai-float-label': floatLabel }">
             <slot name="placeholder">
                 {{ placeholder }}
             </slot>
@@ -78,16 +78,14 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
             class="ai-input"
         />
         <slot v-if="type !== 'password'" name="trailing" />
-        <label
-            :for="id"
+        <button
             v-else
+            type="button"
             class="ai-password-toggle ai-rounded ai-input-button"
             @click="iconActive = !switchType(input, 'password', 'text')"
         >
-            <span class="ai-icon-container">
-                <IconEye :active="iconActive" />
-            </span>
-        </label>
+            <IconEye :active="iconActive" />
+        </button>
     </AIBaseInput>
 </template>
 
@@ -106,7 +104,7 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
         z-index: 1;
     }
 
-    .ai-placeholer {
+    .ai-placeholder {
         bottom: 0;
         left: 0;
         margin: 0;
@@ -114,6 +112,7 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
         width: 100%;
         height: 100%;
         display: flex;
+        user-select: none;
         position: absolute;
         align-items: center;
         padding: 0 var(--spacing);
@@ -136,21 +135,14 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
         margin-bottom: var(--border-size);
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
 
-        .ai-icon-container {
-            width: 100%;
-            height: 100%;
-            display: grid;
-            place-items: center;
-        }
-
         .ai-icon {
             scale: 1.7;
         }
     }
 }
 
-.ai-base-input:is(:focus, :focus-within, :active):has(.ai-input) {
-    .ai-placeholer {
+.ai-base-input:is(:focus, :focus-within, :active, .ai-input-active):has(.ai-input) {
+    .ai-placeholder {
         opacity: 0;
         left: var(--spacing);
     }
