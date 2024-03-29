@@ -39,9 +39,10 @@ export const capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
-export const charMatchSome = (char: string, matcher: StrOrRegex[]) => {
+export const charMatchSome = (char: string, matcher: StrOrRegex[] | number[]) => {
     for (const not of matcher) {
         if (typeof not === 'object' && (not as any).test(char)) return true
+        else if (typeof not === 'number' && parseInt(char) === not) return true
         else if (not === char) return true
     }
     return false
