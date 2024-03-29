@@ -65,14 +65,12 @@ export interface TextInputProps extends InputProps {
 }
 
 export interface NumInputProps extends InputProps {
-    //* mascara, direccion, token #, inicial #
-    //? ###.### **, rtl, #, 0
-    mask?: [string, 'rtl' | 'ltr', string, number]
     min?: number
     max?: number
     step?: number
     list?: string
     pattern?: string
+    notInput?: number[]
 
     errorIf?: (val: number) => boolean
     warningIf?: (val: number) => boolean
