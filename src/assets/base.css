@@ -3,6 +3,8 @@
     --surface-color: #fff;
     --text-color: #000;
 
+    --input-button-size: 2.2rem;
+    --disabled-opacity: 0.85;
     --border-radius: 0.2rem;
     --border-size: 0.2rem;
     --anim-duration: 0.3s;

@@ -9,6 +9,8 @@ body {
     font-family: sans-serif;
 }
 
+/*** GENERAL ***/
+
 .ai-rounded {
     border-radius: var(--border-radius);
 }
@@ -22,11 +24,31 @@ body {
         border-color var(--anim-duration) ease;
 }
 
+.ai-base:disabled {
+    --ui-color: var(--text-secondary-color);
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.85;
+}
+
 .ai-icon {
     --color: var(--text-color);
-    pointer-events: none;
     fill: var(--color);
+    pointer-events: none;
     transition: fill var(--anim-duration) ease;
+}
+
+.ai-input-button {
+    z-index: 2;
+    cursor: pointer;
+    width: var(--input-button-size);
+    padding: 0 calc(var(--spacing) + 2px);
+    background-color: color-mix(in srgb, var(--text-secondary-color) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text-secondary-color) 10%, transparent);
+
+    .ai-ripple-effect {
+        --ui-text-color: var(--ui-color);
+    }
 }
 
 /*** BORDER RIPPLE ***/
