@@ -20,11 +20,9 @@ onMounted(initBaseInput(outline, input))
     <label
         ref="input"
         class="ai-base ai-base-input ai-rounded"
-        :class="[
-            { 'ai-input-outline': outline, 'ai-input-filled': filled, 'ai-disabled': disabled },
-            State[state]
-        ]"
+        :class="[{ 'ai-input-outline': outline, 'ai-input-filled': filled }, State[state]]"
         :for="id"
+        :disabled
     >
         <span name="borderTopL" class="ai-outline-aux ai-input-border-top-left" v-if="outline" />
         <span name="borderTopR" class="ai-outline-aux ai-input-border-top-right" v-if="outline" />
