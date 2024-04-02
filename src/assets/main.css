@@ -24,11 +24,15 @@ body {
         border-color var(--anim-duration) ease;
 }
 
-.ai-base[disabled] {
+.ai-base[disabled='true'] {
     --ui-color: var(--text-secondary-color);
     pointer-events: none;
     cursor: default;
     opacity: 0.85;
+
+    .ai-base {
+        --ui-color: var(--text-secondary-color);
+    }
 }
 
 .ai-icon {
@@ -103,14 +107,14 @@ body {
     border-radius: 50%;
     transform: scale(0);
     pointer-events: none;
-    animation: ripple 600ms linear forwards;
+    animation: ripple 450ms ease forwards;
     background-color: color-mix(in srgb, var(--ui-text-color) 30%, transparent);
 }
 
 @keyframes ripple {
     to {
         transform: scale(2);
-        opacity: 0;
+        opacity: 0.3;
     }
 }
 
