@@ -26,7 +26,6 @@ body {
 
 .ai-base[disabled='true'] {
     --ui-color: var(--text-secondary-color);
-    pointer-events: none;
     cursor: default;
     opacity: 0.85;
 
