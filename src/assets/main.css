@@ -24,7 +24,7 @@ body {
         border-color var(--anim-duration) ease;
 }
 
-.ai-base:disabled {
+.ai-base[disabled] {
     --ui-color: var(--text-secondary-color);
     pointer-events: none;
     cursor: default;
