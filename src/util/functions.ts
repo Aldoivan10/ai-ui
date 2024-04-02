@@ -2,20 +2,34 @@ import type { StrOrRegex } from './types'
 
 export const addRippleEffect = (element: HTMLElement) => {
     const limit = document.createElement('span')
+    let circle: HTMLSpanElement | null = null
+    let aux: HTMLSpanElement | null = null
     element.style.position = 'relative'
     limit.classList.add('ai-ripple-container')
     element.appendChild(limit)
-    element.addEventListener('click', (event) => {
+    element.addEventListener('mousedown', (event) => {
         const target = limit
-        const circle = document.createElement('span') as HTMLSpanElement
         const diameter = Math.max(target.clientWidth, target.clientHeight)
         const radius = diameter / 2
+        circle = document.createElement('span') as HTMLSpanElement
         circle.style.width = circle.style.height = `${diameter}px`
         circle.style.left = `${event.clientX - target.getBoundingClientRect().x - radius}px`
         circle.style.top = `${event.clientY - target.getBoundingClientRect().y - radius}px`
-        circle.onanimationend = () => circle.remove()
+        circle.onanimationend = () => (aux = circle)
         circle.classList.add('ai-ripple-effect')
         target.appendChild(circle)
+    })
+
+    element.addEventListener('mouseup', () => {
+        if (aux) {
+            aux.remove()
+            aux = null
+            circle = null
+        } else if (circle) {
+            circle.onanimationend = (evt) => (evt.target as HTMLElement).remove()
+            circle = null
+            aux = null
+        }
     })
 }
 
@@ -55,4 +69,10 @@ export const switchType = (input: HTMLInputElement, targetType: string, defaultT
     }
     input.type = targetType
     return false
+}
+
+export const removeElement = (arr: any[], item: any): any[] => {
+    const index = arr.indexOf(item)
+    console.log(index)
+    return arr
 }
