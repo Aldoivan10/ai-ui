@@ -1,6 +1,12 @@
 import type { ModelRef, Ref } from 'vue'
 import type { InputTextTypes, StrOrRegex } from '@/util/types'
-import { swapTransition, capitalize, charMatchSome, addRippleEffect } from '@/util/functions'
+import {
+    swapTransition,
+    capitalize,
+    charMatchSome,
+    addRippleEffect,
+    addAndClampNum
+} from '@/util/functions'
 
 export const initBaseInput = (outline: boolean, input: Ref<HTMLElement>) => {
     if (outline)
@@ -128,5 +134,88 @@ export const initTextInput = (
             if (notInput) el.addEventListener('keydown', noInputEvent)
             addRippleEffect(el.parentElement!.querySelector('.ai-password-toggle')!)
         }
+    }
+}
+
+export const initNumInput = (
+    input: Ref<HTMLInputElement>,
+    model: ModelRef<unknown, number>,
+    notInput: number[],
+    min: number,
+    max: number
+) => {
+    return () => {
+        let timer = setTimeout(() => {}, 0)
+        let duration = 200
+        let clickCount = 0
+
+        const el = input.value!
+        const buttons = el.parentElement!.querySelectorAll('.ai-input-button')
+        const btnMinus = buttons[0] as HTMLButtonElement
+        const btnAdd = buttons[1] as HTMLButtonElement
+        const limitInput = () => {
+            if (model.value && min) {
+                const val = model.value as number
+                if (val <= min) {
+                    const evt = new Event('mouseup', { bubbles: false, cancelable: true })
+                    el.dispatchEvent(evt)
+                }
+            }
+            if (model.value && max) model.value = Math.min(max, model.value as number)
+        }
+        const addFunc = (model: ModelRef<unknown, number>, num: number) => {
+            const val = model.value as number
+            if (clickCount++ === 5) {
+                duration = Math.max(50, duration - 50)
+                clickCount = 0
+            }
+
+            model.value = (model.value ? val : 0) + num
+            timer = setTimeout(addFunc, duration, model, num)
+        }
+
+        const clearPressed = () => {
+            limitInput()
+            duration = 200
+            clickCount = 0
+            timer && clearTimeout(timer)
+        }
+
+        if (notInput) {
+            el.addEventListener('keydown', (evt: KeyboardEvent) => {
+                const char = evt.key
+                if (charMatchSome(char, notInput)) {
+                    evt.preventDefault()
+                    return
+                }
+            })
+        }
+        if (min && !model.value) {
+            model.value = min
+            btnMinus.setAttribute('disabled', 'true')
+        }
+
+        for (const btn of Array.from(buttons)) {
+            addRippleEffect(btn as HTMLElement)
+            ;(btn as HTMLButtonElement).addEventListener('mouseup', clearPressed)
+            ;(btn as HTMLButtonElement).addEventListener('mouseout', clearPressed)
+        }
+
+        btnMinus.addEventListener('mousedown', () => {
+            console.log('??')
+            const val = addAndClampNum(model.value, -1, min, max)
+            console.log(val)
+            if (max && val > max) btnAdd.setAttribute('disabled', 'false')
+            if (min && val === min) btnMinus.setAttribute('disabled', 'true')
+            timer = setTimeout(addFunc, duration, model, -1)
+            model.value = val
+        })
+        btnAdd.addEventListener('mousedown', () => {
+            const val = addAndClampNum(model.value, 1, min, max)
+            if (min && val > min) btnMinus.setAttribute('disabled', 'false')
+            if (max && val === max) btnAdd.setAttribute('disabled', 'true')
+            timer = setTimeout(addFunc, duration, model, 1)
+            model.value = val
+        })
     }
 }

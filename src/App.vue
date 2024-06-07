@@ -4,6 +4,7 @@ import AIBaseButton from './components/base/AIBaseButton.vue'
 import AILoaderButton from './components/form/AILoaderButton.vue'
 import { Loader, State } from './util/constants'
 import AIInput from './components/form/AIInput.vue'
+import AINumInput from './components/form/AINumInput.vue'
 
 const showLoader = ref(false)
 const text = ref('')
@@ -13,7 +14,7 @@ const state = ref<keyof typeof State>('normal')
 <template>
     <div class="container">
         <div class="group-container">
-            <AIBaseButton @click="state = 'error'"> Active </AIBaseButton>
+            <AIBaseButton @click="state = 'error'" disabled> Active </AIBaseButton>
             <AIBaseButton @click="showLoader = !showLoader" text="Mostrar loaders" outline />
             <AIBaseButton text="Only text" :state="'error'" text-only />
             <AILoaderButton text="Loader" :show-loader="showLoader" :loader="Loader.spin" />
@@ -47,6 +48,8 @@ const state = ref<keyof typeof State>('normal')
                 "
                 :error-if="(val) => !val"
             />
+
+            <AINumInput placeholder="Number" :min="10" :max="20" float-label />
             <!--  <input type="file" accept="capture=camera,image/*" /> -->
         </div>
         <div class="group-container"></div>

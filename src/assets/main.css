@@ -22,15 +22,16 @@ body {
         color var(--anim-duration) ease,
         background-color var(--anim-duration) ease,
         border-color var(--anim-duration) ease;
-}
 
-.ai-base[disabled='true'] {
-    --ui-color: var(--text-secondary-color);
-    cursor: default;
-    opacity: 0.85;
-
-    .ai-base {
+    &[disabled='true'] {
         --ui-color: var(--text-secondary-color);
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.85;
+
+        .ai-base {
+            --ui-color: var(--text-secondary-color);
+        }
     }
 }
 
@@ -58,56 +59,63 @@ body {
 
 .ai-ripple-border {
     --border-color: var(--ui-color);
+    --anim-duration: 0.18s;
+
     position: relative;
     border: 1px solid transparent;
-}
 
-.ai-ripple-border::after,
-.ai-ripple-border::before {
-    --anim-duration: 0.18s;
-    inset: 0;
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    border-radius: inherit;
-    transition: box-shadow var(--anim-duration) ease;
-    box-shadow:
-        color-mix(in srgb, var(--border-color) 50%, transparent) 0px 0px 0px 0px,
-        color-mix(in srgb, var(--border-color) 50%, transparent) 0px 0px 0px 0px;
-}
+    &::after,
+    &::before {
+        inset: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: inherit;
+        transition: box-shadow var(--anim-duration) ease;
+        box-shadow:
+            color-mix(in srgb, var(--border-color) 50%, transparent) 0px 0px 0px 0px,
+            color-mix(in srgb, var(--border-color) 50%, transparent) 0px 0px 0px 0px;
+    }
 
-.ai-ripple-border::before {
-    transition-delay: var(--anim-duration);
-}
+    &::before {
+        transition-delay: var(--anim-duration);
+    }
 
-.ai-ripple-border:is(:focus, :active):not(:disabled)::after,
-.ai-ripple-border:is(:focus, :active):not(:disabled)::before {
-    box-shadow:
-        color-mix(in srgb, var(--border-color) 30%, transparent) 0px 0px 0px var(--border-size),
-        color-mix(in srgb, var(--border-color) 30%, transparent) 0px 0px 0px var(--border-size);
+    &:is(:focus, :active):not(:disabled) {
+        &::after,
+        &::before {
+            box-shadow:
+                color-mix(in srgb, var(--border-color) 30%, transparent) 0px 0px 0px
+                    var(--border-size),
+                color-mix(in srgb, var(--border-color) 30%, transparent) 0px 0px 0px
+                    var(--border-size);
+        }
+    }
 }
 
 /*** RIPPLE EFFECT ***/
 
-.ai-base .ai-ripple-container {
-    pointer-events: none;
-    position: absolute;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-}
+.ai-base {
+    .ai-ripple-container {
+        pointer-events: none;
+        position: absolute;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
 
-.ai-base .ai-ripple-container > .ai-ripple-effect {
-    overflow: hidden;
-    position: absolute;
-    border-radius: 50%;
-    transform: scale(0);
-    pointer-events: none;
-    animation: ripple 450ms ease forwards;
-    background-color: color-mix(in srgb, var(--ui-text-color) 30%, transparent);
+        & > .ai-ripple-effect {
+            overflow: hidden;
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            pointer-events: none;
+            animation: ripple 450ms ease forwards;
+            background-color: color-mix(in srgb, var(--ui-text-color) 30%, transparent);
+        }
+    }
 }
 
 @keyframes ripple {

@@ -76,3 +76,16 @@ export const removeElement = (arr: any[], item: any): any[] => {
     console.log(index)
     return arr
 }
+
+export const addAndClampNum = (
+    val: number | undefined | unknown,
+    add: number,
+    min: number | undefined,
+    max: number | undefined
+): number => {
+    let newVal = val ? (val as number) + add : 0 + add
+    console.log(newVal)
+    if (min) newVal = Math.max(min, newVal)
+    if (max) newVal = Math.min(max, newVal)
+    return newVal
+}
