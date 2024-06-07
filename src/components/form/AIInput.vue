@@ -139,24 +139,24 @@ onMounted(initTextInput(input, model, trim && !mask, upper, capitalize, mask, no
             scale: 1.7;
         }
     }
-}
 
-.ai-base-input:is(:focus, :focus-within, :active, .ai-input-active):has(.ai-input) {
-    .ai-placeholder {
-        opacity: 0;
-        left: var(--spacing);
-    }
+    &:is(:focus, :focus-within, :active, .ai-input-active):has(.ai-input) {
+        .ai-placeholder {
+            opacity: 0;
+            left: var(--spacing);
+        }
 
-    .ai-float-label {
-        opacity: 1;
-        bottom: 80%;
-        font-size: 0.875em;
-        left: calc(var(--spacing) * -1);
-        color: color-mix(in srgb, var(--ui-color) 80%, var(--text-secondary-color));
-    }
+        .ai-float-label {
+            opacity: 1;
+            bottom: 80%;
+            font-size: 0.875em;
+            left: calc(var(--spacing) * -1);
+            color: color-mix(in srgb, var(--ui-color) 80%, var(--text-secondary-color));
+        }
 
-    .ai-icon {
-        fill: var(--ui-color);
+        .ai-icon {
+            fill: var(--ui-color);
+        }
     }
 }
 </style>

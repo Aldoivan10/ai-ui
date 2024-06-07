@@ -52,33 +52,35 @@ onMounted(initBaseInput(outline, input))
     gap: var(--spacing);
     padding: 0 var(--spacing);
     margin: calc(var(--spacing) * 2.5) 0;
-}
 
-.ai-base-input::after,
-.ai-base-input::before {
-    top: 0;
-    left: 0;
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    border-radius: inherit;
-    border-bottom: calc(var(--border-size) / 1.5) solid var(--border-unfocus-color);
-}
+    &:is(.ai-input-filled) {
+        background-color: var(--surface-color);
+    }
 
-.ai-base-input::after {
-    transform: scaleX(0);
-    transition:
-        transform var(--border-anim-duration) ease var(--border-anim-delay),
-        border-color var(--border-anim-duration) ease;
-    border-color: var(--ui-color);
-}
+    &::before,
+    &::after {
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: inherit;
+        border-bottom: calc(var(--border-size) / 1.5) solid var(--border-unfocus-color);
+    }
 
-.ai-base-input:is(:focus, :focus-within, :active, .ai-input-active)::after {
-    transform: scaleX(1);
-}
+    &::after {
+        transform: scaleX(0);
+        transition:
+            transform var(--border-anim-duration) ease var(--border-anim-delay),
+            border-color var(--border-anim-duration) ease;
+        border-color: var(--ui-color);
+    }
 
-.ai-base-input {
+    &:is(:focus, :focus-within, :active, .ai-input-active)::after {
+        transform: scaleX(1);
+    }
+
     .ai-feedback {
         left: 0;
         top: 100%;
@@ -95,25 +97,19 @@ onMounted(initBaseInput(outline, input))
     }
 }
 
-.ai-input-filled {
-    background-color: var(--surface-color);
-}
-
 /*** OUTLINE ***/
 
 .ai-input-outline {
     --border-anim-duration: 0.1s;
-}
 
-.ai-input-outline::before {
-    border: calc(var(--border-size) / 2) solid var(--border-unfocus-color);
-}
+    &::before {
+        border: calc(var(--border-size) / 2) solid var(--border-unfocus-color);
+    }
 
-.ai-input-outline::after {
-    border-bottom: calc(var(--border-size) / 2) solid var(--ui-color);
-}
+    &::after {
+        border-bottom: calc(var(--border-size) / 2) solid var(--ui-color);
+    }
 
-.ai-input-outline {
     .ai-outline-aux {
         transition: border-color var(--anim-duration) ease;
         border-radius: inherit;
@@ -134,8 +130,7 @@ onMounted(initBaseInput(outline, input))
         transition: height var(--border-anim-duration) ease var(--border-anim-duration);
     }
 
-    .ai-input-border-top-left,
-    .ai-input-border-top-right {
+    :where(.ai-input-border-top-left, .ai-input-border-top-right) {
         width: 0%;
         border-top: calc(var(--border-size) / 2) solid var(--ui-color);
         transition: width var(--border-anim-duration) ease calc(var(--border-anim-duration) * 2);
@@ -150,16 +145,15 @@ onMounted(initBaseInput(outline, input))
         left: initial;
         right: 0;
     }
-}
 
-.ai-input-outline:is(:focus, :focus-within, :active, .ai-input-active) {
-    .ai-input-border-x {
-        height: 100%;
-    }
+    &:is(:focus, :focus-within, :active, .ai-input-active) {
+        .ai-input-border-x {
+            height: 100%;
+        }
 
-    .ai-input-border-top-left,
-    .ai-input-border-top-right {
-        width: 50%;
+        :where(.ai-input-border-top-left, .ai-input-border-top-right) {
+            width: 50%;
+        }
     }
 }
 </style>
