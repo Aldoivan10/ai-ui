@@ -164,8 +164,6 @@ body {
 
 /*** DISABLED  ***/
 
-/* DISABLED */
-
 .ai-disabled {
     pointer-events: none;
     cursor: default;

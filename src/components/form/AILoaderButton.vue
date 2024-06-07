@@ -58,47 +58,50 @@ defineOptions({ inheritAttrs: true })
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-.ai-loader-button > .ai-loader-container {
-    position: relative;
-    height: 100%;
-}
+    & > .ai-loader-container {
+        position: relative;
+        height: 100%;
 
-.ai-loader-button > .ai-loader-container > .ai-loader {
-    --size: var(--loader-size);
-    transform: translateY(-50%);
-    position: absolute;
-    top: 50%;
-    left: 0;
-}
+        & > .ai-loader {
+            --size: var(--loader-size);
+            transform: translateY(-50%);
+            position: absolute;
+            top: 50%;
+            left: 0;
+        }
+    }
 
-.ai-loader-button:is(.ai-loader-trailing) > .ai-loader-container > .ai-loader {
-    left: inherit;
-    right: 0;
-}
+    &:is(.ai-loader-leading) {
+        & > .ai-button-content {
+            margin-left: calc(var(--loader-size) + var(--spacing));
+        }
 
-.ai-loader-leading > .ai-button-content,
-.ai-loader-trailing > .ai-button-content {
-    transform: translateX(0);
-    transition: transform var(--anim-duration) ease;
-}
+        &:not(.ai-loader-show) > .ai-button-content {
+            transform: translateX(calc(var(--loader-size) / -2 - var(--spacing) / 2));
+            transition: transform var(--anim-duration) ease-in calc(var(--anim-duration) / 2);
+        }
+    }
 
-.ai-loader-leading:not(.ai-loader-show) > .ai-button-content {
-    transform: translateX(calc(var(--loader-size) / -2 - var(--spacing) / 2));
-    transition: transform var(--anim-duration) ease-in calc(var(--anim-duration) / 2);
-}
+    &:is(.ai-loader-trailing) {
+        & > .ai-loader-container > .ai-loader {
+            left: inherit;
+            right: 0;
+        }
 
-.ai-loader-trailing:not(.ai-loader-show) > .ai-button-content {
-    transform: translateX(calc(var(--loader-size) / 2 + var(--spacing) / 2));
-    transition: transform var(--anim-duration) ease-in calc(var(--anim-duration) / 2);
-}
+        &:not(.ai-loader-show) > .ai-button-content {
+            transform: translateX(calc(var(--loader-size) / 2 + var(--spacing) / 2));
+            transition: transform var(--anim-duration) ease-in calc(var(--anim-duration) / 2);
+        }
 
-.ai-loader-leading > .ai-button-content {
-    margin-left: calc(var(--loader-size) + var(--spacing));
-}
+        & > .ai-button-content {
+            margin-right: calc(var(--loader-size) + var(--spacing));
+        }
+    }
 
-.ai-loader-trailing > .ai-button-content {
-    margin-right: calc(var(--loader-size) + var(--spacing));
+    :where(&:is(.ai-loader-leading), &:is(.ai-loader-trailing)) > .ai-button-content {
+        transform: translateX(0);
+        transition: transform var(--anim-duration) ease;
+    }
 }
 </style>
